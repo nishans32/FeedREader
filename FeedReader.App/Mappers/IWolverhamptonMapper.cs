@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FeedReader.App.Mappers
 {
-    internal interface IWolverhamptonMapper
+    public interface IWolverhamptonMapper
     {
         List<string> MapHorses(WolverhamptonRaceDto wolverhamptonRace);
     }

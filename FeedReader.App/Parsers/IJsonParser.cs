@@ -1,7 +1,17 @@
-﻿namespace FeedReader.App.Parsers
+﻿using Newtonsoft.Json;
+
+namespace FeedReader.App.Parsers
 {
-    internal interface IJsonParser
+    public interface IJsonParser
     {
-        T Parse<T>();
+        T Parse<T>(string caulfieldJson);
+    }
+
+    public class JsonParser : IJsonParser
+    {
+        public T Parse<T>(string caulfieldJson)
+        {
+            return JsonConvert.DeserializeObject<T>(caulfieldJson);
+        }
     }
 }
