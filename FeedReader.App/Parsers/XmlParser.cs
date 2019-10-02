@@ -1,4 +1,4 @@
-﻿namespace FeedReader.App
+﻿namespace FeedReader.App.Parsers
 {
     public interface IXmlParser
     {

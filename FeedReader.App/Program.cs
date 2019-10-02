@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeedReader.App.Services;
+using System;
 
 namespace FeedReader.App
 {

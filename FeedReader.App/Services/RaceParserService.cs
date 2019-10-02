@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using FeedReader.App.Dtos;
+using FeedReader.App.Mappers;
+using FeedReader.App.Parsers;
+using System.Collections.Generic;
 
-namespace FeedReader.App
+namespace FeedReader.App.Services
 {
     public interface IRaceParserService
     {
@@ -16,9 +19,9 @@ namespace FeedReader.App
 
         public List<string> GetHorseData()
         {
-            var _wolverhamptonRace = _xmlParser.Parse<WolverhamptonRace>();
+            var _wolverhamptonRace = _xmlParser.Parse<WolverhamptonRaceDto>();
 
-            var _caufieldRace = _jsonParser.Parse<CaufieldRace>();
+            var _caufieldRace = _jsonParser.Parse<CaufieldRaceDto>();
 
             var wolverhamptonHorses = _wolverhamptonMapper.MapHorses(_wolverhamptonRace);
 
