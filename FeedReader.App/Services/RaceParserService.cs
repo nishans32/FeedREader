@@ -20,13 +20,14 @@ namespace FeedReader.App.Services
         private readonly ICaufieldMapper _caufieldMapper;
         private readonly string wolverhamptonFileLoc;
         private readonly string caufieldFileLoc;
+        private IWolverhamptonService _wolverhamptonService;
+        private CaulfieldService _caulfieldService;
 
 
         public RaceParserService(IXmlParser xmlParser, IJsonParser jsonParser, 
             IWolverhamptonMapper wolverhamptonMapper, ICaufieldMapper caufieldMapper,
             IOptions<FeedSettings> settings)
         {
-            _xmlParser = xmlParser;
             _jsonParser = jsonParser;
             _wolverhamptonMapper = wolverhamptonMapper;
             _caufieldMapper = caufieldMapper;
@@ -36,17 +37,14 @@ namespace FeedReader.App.Services
 
         public List<string> GetHorseData()
         {
-            var wolverhaptonJson = File.ReadAllText(wolverhamptonFileLoc);
+            var wolverhaptonData = File.ReadAllText(wolverhamptonFileLoc);
 
-            var caulfieldJson = File.ReadAllText(caufieldFileLoc);
+            var wolverhamptonHorses = _wolverhamptonService.GetHorses(wolverhaptonData);
 
-            var _wolverhamptonRace = _xmlParser.Parse<WolverhamptonRaceDto>(wolverhaptonJson);
+            var caulfieldData = File.ReadAllText(caufieldFileLoc);
 
-            var _caufieldRace = _jsonParser.Parse<CaufieldRaceDto>(caulfieldJson);
+            var caufieldHorses = _caulfieldService.GetHorses(caulfieldData);
 
-            var wolverhamptonHorses = _wolverhamptonMapper.MapHorses(_wolverhamptonRace);
-
-            var caufieldHorses = _caufieldMapper.MapHorses(_caufieldRace);
 
             var horses = new List<string>();
             horses.AddRange(wolverhamptonHorses);
@@ -56,5 +54,3 @@ namespace FeedReader.App.Services
         }
     }
 
-
-}
